@@ -74,7 +74,7 @@ export function RegisterForm() {
       <Label htmlFor="nickname">닉네임</Label>
       <Input {...register("nickname")} placeholder="닉네임" maxLength={12} />
       <ErrorMessage>{errors.nickname?.message || nicknameError}</ErrorMessage>
-      <div className="flex justify-between gap-2">
+      <div className="flex justify-between gap-2 mt-4">
         <Button variant="outline" size="lg" onClick={handleCancel}>취소</Button>
         <Button type="submit" size="lg">{`다음 >`}</Button>
       </div>
