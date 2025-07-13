@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { Input } from "../../../shared/components/Input";
 import { Label } from "../../../shared/components/Label";
 import { ErrorMessage } from "./ErrorMessage";
+import { Button } from "../../../shared/components/Button";
 
 const schema = yup.object().shape({
   email: yup.string().email("이메일 형식이 아닙니다.").required("필수 입력"),
@@ -55,6 +56,10 @@ export function RegisterForm() {
     navigate("/");
   };
 
+  const handleCancel = () => {
+    navigate("/");
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
       <Label htmlFor="email">이메일</Label>
@@ -69,7 +74,10 @@ export function RegisterForm() {
       <Label htmlFor="nickname">닉네임</Label>
       <Input {...register("nickname")} placeholder="닉네임" maxLength={12} />
       <ErrorMessage>{errors.nickname?.message || nicknameError}</ErrorMessage>
-      <button type="submit">회원가입</button>
+      <div className="flex justify-between gap-2">
+        <Button variant="outline" size="lg" onClick={handleCancel}>취소</Button>
+        <Button type="submit" size="lg">{`다음 >`}</Button>
+      </div>
     </form>
   );
 }
