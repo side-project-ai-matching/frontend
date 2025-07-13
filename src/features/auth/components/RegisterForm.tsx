@@ -4,6 +4,9 @@ import * as yup from "yup";
 import bcrypt from "bcryptjs";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Input } from "../../../shared/components/Input";
+import { Label } from "../../../shared/components/Label";
+import { ErrorMessage } from "./ErrorMessage";
 
 const schema = yup.object().shape({
   email: yup.string().email("이메일 형식이 아닙니다.").required("필수 입력"),
@@ -53,15 +56,19 @@ export function RegisterForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input {...register("email")} placeholder="이메일" />
-      <div>{errors.email?.message || emailError}</div>
-      <input type="password" {...register("password")} placeholder="비밀번호" />
-      <div>{errors.password?.message}</div>
-      <input type="password" {...register("passwordConfirm")} placeholder="비밀번호 확인" />
-      <div>{errors.passwordConfirm?.message}</div>
-      <input {...register("nickname")} placeholder="닉네임" maxLength={12} />
-      <div>{errors.nickname?.message || nicknameError}</div>
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
+      <Label htmlFor="email">이메일</Label>
+      <Input {...register("email")} placeholder="이메일" />
+      <ErrorMessage>{errors.email?.message || emailError}</ErrorMessage>
+      <Label htmlFor="password">비밀번호</Label>
+      <Input type="password" {...register("password")} placeholder="비밀번호" />
+      <ErrorMessage>{errors.password?.message}</ErrorMessage>
+      <Label htmlFor="passwordConfirm">비밀번호 확인</Label>
+      <Input type="password" {...register("passwordConfirm")} placeholder="비밀번호 확인" />
+      <ErrorMessage>{errors.passwordConfirm?.message}</ErrorMessage>
+      <Label htmlFor="nickname">닉네임</Label>
+      <Input {...register("nickname")} placeholder="닉네임" maxLength={12} />
+      <ErrorMessage>{errors.nickname?.message || nicknameError}</ErrorMessage>
       <button type="submit">회원가입</button>
     </form>
   );
